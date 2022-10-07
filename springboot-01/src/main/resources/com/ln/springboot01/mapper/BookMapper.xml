@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ln.springboot01.mapper.BookMapper">
+  <resultMap id="BaseResultMap" type="com.ln.springboot01.model.Book">
+    <id column="book_id" jdbcType="INTEGER" property="bookId" />
+    <result column="book_name" jdbcType="VARCHAR" property="bookName" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_book
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ln.springboot01.model.Book">
+    insert into t_book (book_id, book_name, price, 
+      stock)
+    values (#{bookId,jdbcType=INTEGER}, #{bookName,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER}, 
+      #{stock,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.ln.springboot01.model.Book">
+    update t_book
+    set book_name = #{bookName,jdbcType=VARCHAR},
+      price = #{price,jdbcType=INTEGER},
+      stock = #{stock,jdbcType=INTEGER}
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select book_id, book_name, price, stock
+    from t_book
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select book_id, book_name, price, stock
+    from t_book
+  </select>
+</mapper>
